@@ -8,8 +8,6 @@ namespace CoreLayer
 
         public static string AppUrl { get; private set; }
 
-        public static string TestDataPath { get; private set; }
-
         static Configuration() => Init();
 
         public static void Init()
