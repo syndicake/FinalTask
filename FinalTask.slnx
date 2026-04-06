@@ -1,3 +1,10 @@
 <Solution>
-  <Project Path="FinalTask/FinalTask.csproj" />
+  <Project Path="CoreLayer/CoreLayer.csproj" Id="bd63a2e4-1564-4650-83f5-2294120af210" />
+  <Project Path="BusinessLayer/BusinessLayer.csproj" Id="eba34ec1-c95a-44a3-ad92-0e607ca0f0d4">
+    <BuildDependency Project="CoreLayer/CoreLayer.csproj" />
+  </Project>
+  <Project Path="TestLayer/TestLayer.csproj">
+    <BuildDependency Project="CoreLayer/CoreLayer.csproj" />
+    <BuildDependency Project="BusinessLayer/BusinessLayer.csproj" />
+  </Project>
 </Solution>
