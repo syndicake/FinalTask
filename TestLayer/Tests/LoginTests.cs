@@ -21,7 +21,7 @@ namespace TestLayer.Tests
         }        
 
         [Test]
-        public void UC1_EmptyCredentials_ShouldShowUsernameRequired()
+        public void TestLoginFormWithEmptyCredentials()
         {
             LoginPage loginPage = new LoginPage(Browser);
 
@@ -35,7 +35,7 @@ namespace TestLayer.Tests
         }
 
         [Test]
-        public void UC2_OnlyUsername_ShouldShowPasswordRequired()
+        public void TestLoginFormWithOnlyUsernameProvided()
         {
             LoginPage loginPage = new LoginPage(Browser);
 
@@ -48,7 +48,7 @@ namespace TestLayer.Tests
         }
 
         [Test]
-        public void UC3_ValidCredentials_ShouldShowInventoryPage()
+        public void TestLoginFormWithValidCredentials()
         {
             LoginPage loginPage = new LoginPage(Browser);
 
