@@ -1,8 +1,5 @@
 ﻿using CoreLayer.WebDriver.WebdriverWrapper;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessLayer.PageObjects
 {

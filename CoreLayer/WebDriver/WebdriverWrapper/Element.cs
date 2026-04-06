@@ -13,7 +13,6 @@ namespace CoreLayer.WebDriver.WebdriverWrapper
 
         public IReadOnlyCollection<IWebElement> FindElements(By by)
         {
-            // Wait until at least one element is present, then return the collection
             var wait = new WebDriverWait(_driver, _timeout);
             wait.Until(drv => drv.FindElements(by).Count > 0);
             return _driver.FindElements(by);
@@ -21,7 +20,6 @@ namespace CoreLayer.WebDriver.WebdriverWrapper
 
         public IWebElement FindElement(By by)
         {
-            // Return the element found by the wait helper
             var elementPresent = WaitForElementToBePresent(_driver, by, _timeout);
             if (elementPresent == null)
                 throw new NoSuchElementException($"Element not found: {by}");

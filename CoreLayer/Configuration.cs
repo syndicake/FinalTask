@@ -21,7 +21,6 @@ namespace CoreLayer
 
             BrowserType = configuration["BrowserType"] ?? "Chrome";
             AppUrl = configuration["ApplicationUrl"] ?? string.Empty;
-            //TestDataPath = configuration["TestDataPath"] ?? string.Empty;
         }
     }
 }
