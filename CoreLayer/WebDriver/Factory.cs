@@ -5,7 +5,7 @@ using OpenQA.Selenium.Firefox;
 
 namespace CoreLayer.WebDriver
 {
-    internal class Factory
+    internal static class Factory
     {
         public static IWebDriver CreateWebDriver(BrowserType browserType)
         {
@@ -15,8 +15,8 @@ namespace CoreLayer.WebDriver
                     {
                         var service = ChromeDriverService.CreateDefaultService();
                         ChromeOptions options = new();
-                        options.AddArgument("disable-infobars");
                         options.AddArgument("--incognito");
+                        options.AddArgument("--headless");
 
                         return new ChromeDriver(service, options, TimeSpan.FromSeconds(30));
                     }
@@ -24,8 +24,8 @@ namespace CoreLayer.WebDriver
                     {
                         var service = EdgeDriverService.CreateDefaultService();
                         EdgeOptions options = new();
-                        options.AddArgument("--inprivate");
-                        options.AddArgument("headless");
+                        options.AddArgument("--incognito");
+                        options.AddArgument("--headless");
 
                         return new EdgeDriver(service, options, TimeSpan.FromSeconds(30));
                     }
@@ -33,8 +33,8 @@ namespace CoreLayer.WebDriver
                     {
                         var service = FirefoxDriverService.CreateDefaultService();
                         FirefoxOptions options = new();
-                        options.AddArgument("-private");
-                        options.AddArgument("-headless");
+                        options.AddArgument("--incognito");
+                        options.AddArgument("--headless");
 
                         return new FirefoxDriver(service, options, TimeSpan.FromSeconds(30));
                     }

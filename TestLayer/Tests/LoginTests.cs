@@ -13,7 +13,7 @@ namespace TestLayer.Tests
         [SetUp]
         public void Setup()
         {
-            var browserType = (BrowserType)Enum.Parse(typeof(BrowserType), Configuration.BrowserType);
+            BrowserType browserType = Enum.Parse<BrowserType>(Configuration.BrowserType);
 
             Browser = new WebdriverWrapper(browserType);
             Browser.StartBrowser();
@@ -23,7 +23,7 @@ namespace TestLayer.Tests
         [Test]
         public void TestLoginFormWithEmptyCredentials()
         {
-            LoginPage loginPage = new LoginPage(Browser);
+            LoginPage loginPage = new(Browser);
 
             loginPage.EnterUserName("test");
             loginPage.EnterPassword("test");
@@ -37,7 +37,7 @@ namespace TestLayer.Tests
         [Test]
         public void TestLoginFormWithOnlyUsernameProvided()
         {
-            LoginPage loginPage = new LoginPage(Browser);
+            LoginPage loginPage = new(Browser);
 
             loginPage.EnterUserName("standard_user");
             loginPage.EnterPassword("secret_sauce");
@@ -50,7 +50,7 @@ namespace TestLayer.Tests
         [Test]
         public void TestLoginFormWithValidCredentials()
         {
-            LoginPage loginPage = new LoginPage(Browser);
+            LoginPage loginPage = new(Browser);
 
             loginPage.EnterUserName("standard_user");
             loginPage.EnterPassword("secret_sauce");

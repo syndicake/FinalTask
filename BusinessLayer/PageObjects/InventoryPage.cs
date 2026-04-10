@@ -3,19 +3,19 @@ using OpenQA.Selenium;
 
 namespace BusinessLayer.PageObjects
 {
-    public class InventoryPage
+    public class InventoryPage(WebdriverWrapper driver)
     {
-        private WebdriverWrapper driver;
+        private readonly WebdriverWrapper driver = driver;
+        private static readonly By BurgerMenu = By.CssSelector("#react-burger-menu-btn");
+        private static readonly By SwagLabsLabel = By.CssSelector(".app_logo");
+        private static readonly By CartIcon = By.CssSelector(".shopping_cart_link");
+        private static readonly By FilterDropdown = By.CssSelector(".product_sort_container");
+        private static readonly By InventoryItems = By.CssSelector(".inventory_item");
 
-        public InventoryPage(WebdriverWrapper driver)
-        {
-            this.driver = driver;
-        }
-
-        public bool IsBurgerMenuDisplayed() => driver.FindElement(By.CssSelector("#react-burger-menu-btn")).Displayed;
-        public bool IsSwagLabsLabelDisplayed() => driver.FindElement(By.CssSelector(".app_logo")).Displayed;
-        public bool IsCartIconDisplayed() => driver.FindElement(By.CssSelector(".shopping_cart_link")).Displayed;
-        public bool IsFilterDropdownDisplayed() => driver.FindElement(By.CssSelector(".product_sort_container")).Displayed;
-        public bool AreInventoryItemsDisplayed() => driver.FindElements(By.CssSelector(".inventory_item")).Count > 0;
+        public bool IsBurgerMenuDisplayed() => driver.FindElement(BurgerMenu).Displayed;
+        public bool IsSwagLabsLabelDisplayed() => driver.FindElement(SwagLabsLabel).Displayed;
+        public bool IsCartIconDisplayed() => driver.FindElement(CartIcon).Displayed;
+        public bool IsFilterDropdownDisplayed() => driver.FindElement(FilterDropdown).Displayed;
+        public bool AreInventoryItemsDisplayed() => driver.FindElements(InventoryItems).Count > 0;
     }
 }

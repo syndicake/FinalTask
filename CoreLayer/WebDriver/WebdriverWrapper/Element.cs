@@ -8,7 +8,7 @@ namespace CoreLayer.WebDriver.WebdriverWrapper
     {
         public void Click(By by)
         {
-            WaitForElementToBePresent(_driver, by, _timeout)?.Click();
+            WaitForElementToBePresent(_driver, by, _timeout).Click();
         }
 
         public IReadOnlyCollection<IWebElement> FindElements(By by)
@@ -21,9 +21,6 @@ namespace CoreLayer.WebDriver.WebdriverWrapper
         public IWebElement FindElement(By by)
         {
             var elementPresent = WaitForElementToBePresent(_driver, by, _timeout);
-            if (elementPresent == null)
-                throw new NoSuchElementException($"Element not found: {by}");
-
             return elementPresent;
         }
 
@@ -42,23 +39,14 @@ namespace CoreLayer.WebDriver.WebdriverWrapper
                 .Perform();
         }
 
-        public IWebElement? WaitForElementToBePresent(IWebDriver Driver, By by, TimeSpan _timeout)
+        public static IWebElement WaitForElementToBePresent(IWebDriver Driver, By by, TimeSpan _timeout)
         {
             var wait = new WebDriverWait(Driver, _timeout);
+            // Will throw WebDriverTimeoutException if condition isn't met within timeout
             return wait.Until(drv =>
             {
-                try
-                {
-                    var element = drv.FindElement(by);
-                    if (element != null && element.Displayed)
-                        return element;
-                }
-                catch (NoSuchElementException)
-                {
-                    Console.WriteLine("WaitForElementToBePresent method: 'NoSuchElementException' is found.");
-                }
-
-                return null;
+                var element = drv.FindElement(by);
+                return element != null && element.Displayed ? element : throw new NoSuchElementException($"Element not found: {by}");
             });
         }
     }

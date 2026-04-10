@@ -2,24 +2,17 @@
 
 namespace CoreLayer.WebDriver.WebdriverWrapper
 {
-    public partial class WebdriverWrapper
+    public partial class WebdriverWrapper(BrowserType browserType)
     {
-        private readonly TimeSpan _timeout;
+        private readonly TimeSpan _timeout = TimeSpan.FromSeconds(WaitTimeInSeconds);
 
-        private readonly IWebDriver _driver;
+        private readonly IWebDriver _driver = Factory.CreateWebDriver(browserType);
 
         private const int WaitTimeInSeconds = 10;
 
-        public WebdriverWrapper(BrowserType browserType)
-        {
-            _driver = Factory.CreateWebDriver(browserType);
-            _timeout = TimeSpan.FromSeconds(WaitTimeInSeconds);
-        }
-
-        public void StartBrowser(int implicitWaitTime = 10)
+        public void StartBrowser()
         {
             _driver.Manage().Window.Maximize();
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(implicitWaitTime);
         }
 
         public void Close()

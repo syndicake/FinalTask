@@ -2,13 +2,15 @@
 
 namespace CoreLayer
 {
-    public class Configuration
+    public static class Configuration
     {
-        public static string BrowserType { get; private set; }
+        public static string BrowserType { get; private set; } = "Chrome";
+        public static string AppUrl { get; private set; } = string.Empty;
 
-        public static string AppUrl { get; private set; }
-
-        static Configuration() => Init();
+        static Configuration()
+        {
+            Init();
+        }
 
         public static void Init()
         {

@@ -1,21 +1,24 @@
 ﻿using CoreLayer.WebDriver.WebdriverWrapper;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using System;
 
 
 namespace BusinessLayer.PageObjects
 {
-    public class LoginPage
+    public class LoginPage(WebdriverWrapper driver)
     {
-        private WebdriverWrapper driver;
-        private IWebElement UserNameInput => driver.FindElement(By.CssSelector("input#user-name"));
-        private IWebElement PasswordInput => driver.FindElement(By.CssSelector("input#password"));
-        private IWebElement LoginButton => driver.FindElement(By.CssSelector("input#login-button"));
-        private IWebElement ErrorElement => driver.FindElement(By.CssSelector("*[data-test = 'error']"));
+        private readonly WebdriverWrapper driver = driver;
 
-        public LoginPage(WebdriverWrapper driver)
-        {
-            this.driver = driver;
-        }
+        private static readonly By UserNameBy = By.CssSelector("input#user-name");
+        private static readonly By PasswordBy = By.CssSelector("input#password");
+        private static readonly By LoginButtonBy = By.CssSelector("input#login-button");
+        private static readonly By ErrorBy = By.CssSelector("*[data-test = 'error']");
+
+        private IWebElement UserNameInput => driver.FindElement(UserNameBy);
+        private IWebElement PasswordInput => driver.FindElement(PasswordBy);
+        private IWebElement LoginButton => driver.FindElement(LoginButtonBy);
+        private IWebElement ErrorElement => driver.FindElement(ErrorBy);
 
         public void EnterUserName(string userName)
         {
@@ -33,46 +36,18 @@ namespace BusinessLayer.PageObjects
 
         public void ClearPassword() => ClearInput(PasswordInput);
 
-        private void ClearInput(IWebElement input)
+        private static void ClearInput(IWebElement input)
         {
-            while (!input.GetAttribute("value").Equals(""))
-            {
-                input.SendKeys(Keys.Backspace);
-            }
-            input.SendKeys(Keys.Tab);
+            input.SendKeys(Keys.Control + "a");
+            input.SendKeys(Keys.Delete);
         }
 
         public void PressLoginButton() => LoginButton.Click();
 
         public string GetErrorMessage()
         {
-            const int maxAttempts = 10;
-            const int delayMs = 200;
-
-            for (int attempt = 0; attempt < maxAttempts; attempt++)
-            {
-                try
-                {
-                    var text = ErrorElement.Text;
-                    if (!string.IsNullOrEmpty(text))
-                        return text;
-                }
-                catch (StaleElementReferenceException)
-                {
-                    // ignore and retry
-                }
-
-                Thread.Sleep(delayMs);
-            }
-
-            try
-            {
-                return ErrorElement.Text;
-            }
-            catch
-            {
-                return string.Empty;
-            }
+            var text = ErrorElement.Text;            
+            return string.IsNullOrEmpty(text) ? throw new ArgumentException($"Error message is null or empty") : text;
         }
     }
 }
