@@ -30,15 +30,6 @@ namespace CoreLayer.WebDriver.WebdriverWrapper
             return elementParent.FindElement(By.Name(childName));
         }
 
-        public void ClickAndSendAction(IWebElement element, string textToSend)
-        {
-            var clickAndSendKeysActions = new Actions(_driver);
-            clickAndSendKeysActions.Click(element)
-                .Pause(TimeSpan.FromSeconds(1))
-                .SendKeys(textToSend)
-                .Perform();
-        }
-
         public static IWebElement WaitForElementToBePresent(IWebDriver Driver, By by, TimeSpan _timeout)
         {
             var wait = new WebDriverWait(Driver, _timeout);
