@@ -1,7 +1,7 @@
 ﻿using BusinessLayer.PageObjects;
 using CoreLayer;
 using CoreLayer.WebDriver.WebdriverWrapper;
-using NUnit.Framework.Internal;
+using NUnit.Framework;
 
 namespace TestLayer.Tests
 {
@@ -20,13 +20,13 @@ namespace TestLayer.Tests
             Browser.NavigateTo(Configuration.AppUrl);
         }        
 
-        [Test]
-        public void TestLoginFormWithEmptyCredentials()
+        [TestCase("test", "test")]
+        public void TestLoginFormWithEmptyCredentials(string username, string password)
         {
             LoginPage loginPage = new(Browser);
 
-            loginPage.EnterUserName("test");
-            loginPage.EnterPassword("test");
+            loginPage.EnterUserName(username);
+            loginPage.EnterPassword(password);
             loginPage.ClearUserName();
             loginPage.ClearPassword();
             loginPage.PressLoginButton();
@@ -34,26 +34,26 @@ namespace TestLayer.Tests
             loginPage.GetErrorMessage().Should().Be("Epic sadface: Username is required");
         }
 
-        [Test]
-        public void TestLoginFormWithOnlyUsernameProvided()
+        [TestCase("standard_user", "secret_sauce")]
+        public void TestLoginFormWithOnlyUsernameProvided(string username, string password)
         {
             LoginPage loginPage = new(Browser);
 
-            loginPage.EnterUserName("standard_user");
-            loginPage.EnterPassword("secret_sauce");
+            loginPage.EnterUserName(username);
+            loginPage.EnterPassword(password);
             loginPage.ClearPassword();
             loginPage.PressLoginButton();
 
             loginPage.GetErrorMessage().Should().Be("Epic sadface: Password is required");
         }
 
-        [Test]
-        public void TestLoginFormWithValidCredentials()
+        [TestCase("standard_user", "secret_sauce")]
+        public void TestLoginFormWithValidCredentials(string username, string password)
         {
             LoginPage loginPage = new(Browser);
 
-            loginPage.EnterUserName("standard_user");
-            loginPage.EnterPassword("secret_sauce");
+            loginPage.EnterUserName(username);
+            loginPage.EnterPassword(password);
             loginPage.PressLoginButton();
 
             var inventoryPage = new InventoryPage(Browser);

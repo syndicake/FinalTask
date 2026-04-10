@@ -42,7 +42,6 @@ namespace CoreLayer.WebDriver.WebdriverWrapper
         public static IWebElement WaitForElementToBePresent(IWebDriver Driver, By by, TimeSpan _timeout)
         {
             var wait = new WebDriverWait(Driver, _timeout);
-            // Will throw WebDriverTimeoutException if condition isn't met within timeout
             return wait.Until(drv =>
             {
                 var element = drv.FindElement(by);
