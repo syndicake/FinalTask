@@ -5,15 +5,17 @@ using NUnit.Framework;
 
 namespace TestLayer.Tests
 {
-    [TestFixture]
-    public class LoginTests
+    [TestFixture("Chrome")]
+    [TestFixture("Edge")]
+    public class LoginTests(string browser)
     {
+        private readonly string _browser = browser;
         public WebdriverWrapper Browser { get; private set; }
 
         [SetUp]
         public void Setup()
         {
-            BrowserType browserType = Enum.Parse<BrowserType>(Configuration.BrowserType);
+            BrowserType browserType = Enum.Parse<BrowserType>(_browser);
 
             Browser = new WebdriverWrapper(browserType);
             Browser.StartBrowser();
