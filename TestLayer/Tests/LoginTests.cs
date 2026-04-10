@@ -34,7 +34,7 @@ namespace TestLayer.Tests
             loginPage.ClearPassword();
             loginPage.PressLoginButton();
 
-            loginPage.GetErrorMessage().Should().Be("Epic sadface: Username is required", because: "Error message Epic sadface: Username is required is expected because both username and password were cleared before attempting to login");
+            loginPage.GetErrorMessage().Should().Be("Epic sadface: Username is required", because: "because both username and password were cleared before attempting to login");
         }
 
         [TestCase("test", "test")]
@@ -48,7 +48,7 @@ namespace TestLayer.Tests
             loginPage.ClearPassword();
             loginPage.PressLoginButton();
 
-            loginPage.GetErrorMessage().Should().Be("Epic sadface: Password is required", because: "Error message Epic sadface: Password is required is expected because the password field was cleared before attempting to login");
+            loginPage.GetErrorMessage().Should().Be("Epic sadface: Password is required", because: "because the password field was cleared before attempting to login");
         }
 
         [TestCase("standard_user", "secret_sauce")]
@@ -63,11 +63,11 @@ namespace TestLayer.Tests
 
             var inventoryPage = new InventoryPage(Browser);
 
-            inventoryPage.IsBurgerMenuDisplayed().Should().BeTrue(because: "The burger menu should be visible because user logged in with valid credentials");
-            inventoryPage.IsSwagLabsLabelDisplayed().Should().BeTrue(because: "The Swag Labs label should be visible because user logged in with valid credentials");
-            inventoryPage.IsCartIconDisplayed().Should().BeTrue(because: "The cart icon should be visible because user logged in with valid credentials");
-            inventoryPage.IsFilterDropdownDisplayed().Should().BeTrue(because: "The filter dropdown should be visible because user logged in with valid credentials");
-            inventoryPage.AreInventoryItemsDisplayed().Should().BeTrue(because: "The inventory items should be listed because user logged in with valid credentials");
+            inventoryPage.IsBurgerMenuDisplayed().Should().BeTrue(because: "because the burger menu should be visible because user logged in with valid credentials");
+            inventoryPage.IsSwagLabsLabelDisplayed().Should().BeTrue(because: "because the Swag Labs label should be visible after logging in with valid credentials");
+            inventoryPage.IsCartIconDisplayed().Should().BeTrue(because: "because the cart icon should be visible after logging in with valid credentials");
+            inventoryPage.IsFilterDropdownDisplayed().Should().BeTrue(because: "because the filter dropdown should be visible after logging in with valid credentials");
+            inventoryPage.AreInventoryItemsDisplayed().Should().BeTrue(because: "because the inventory items should be listed after logging in with valid credentials");
         }
 
         [TearDown]
